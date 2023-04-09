@@ -40,11 +40,11 @@ int main(int argc, char** argv)
   else if (std::strncmp(argv[1], "multi", 5) == 0)
   {
     std::vector<std::thread> threads;
-      const uint64_t sub_size = byte_size / num_cores;
-      for (uint64_t i = 0; i < num_cores; ++i)
-      {
-        threads.emplace_back(std::thread([&data, offset = i * sub_size, sub_size]() { std::memset(data.get() + offset, 0, sub_size); }));
-      }
+    const uint64_t sub_size = byte_size / num_cores;
+    for (uint64_t i = 0; i < num_cores; ++i)
+    {
+      threads.emplace_back(std::thread([&data, offset = i * sub_size, sub_size]() { std::memset(data.get() + offset, 0, sub_size); }));
+    }
     for (std::thread& thread : threads)
     {
       thread.join();
